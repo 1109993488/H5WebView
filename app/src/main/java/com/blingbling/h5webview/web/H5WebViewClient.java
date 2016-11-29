@@ -12,7 +12,7 @@ import android.webkit.WebViewClient;
 /**
  * Created by BlingBling on 2016/11/28.
  */
-class H5WebViewClient extends WebViewClient {
+public class H5WebViewClient extends WebViewClient {
 
     private H5WebView mH5WebView;
 

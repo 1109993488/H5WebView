@@ -18,7 +18,7 @@ import java.io.File;
 /**
  * Created by BlingBling on 2016/11/28.
  */
-class H5WebChromeClient extends WebChromeClient {
+public class H5WebChromeClient extends WebChromeClient {
 
     private H5WebView mH5WebView;
     private ValueCallback<Uri> mUploadMessage;

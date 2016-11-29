@@ -1,6 +1,8 @@
 package com.blingbling.h5webview.web;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.http.SslError;
 import android.util.AttributeSet;
 import android.webkit.WebChromeClient;
@@ -14,12 +16,18 @@ import android.webkit.WebViewClient;
  */
 public class H5WebView extends WebView {
 
+    private H5WebViewClient mH5WebViewClient;
+    private H5WebChromeClient mH5WebChromeClient;
+
     H5OnProgressListener mH5OnProgressListener;
     H5OpenFileChooserListener mH5OpenFileChooserListener;
     private boolean mPageStated = false;
     private boolean mRedirect = false;
     private boolean mReceivedError = false;
 
+    public H5WebView(Context context){
+        this(context,null);
+    }
 
     public H5WebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -40,6 +48,7 @@ public class H5WebView extends WebView {
 
         setWebViewClient(new H5WebViewClient());
         setWebChromeClient(new H5WebChromeClient());
+        setDownloadListener(new H5WebViewDownLoadListener((Activity)getContext()));
     }
 
     void onPageStarted(String url) {
@@ -77,7 +86,7 @@ public class H5WebView extends WebView {
         if (!mReceivedError) {
             mReceivedError = true;
             if (mH5OnProgressListener != null) {
-                mH5OnProgressListener.onReceivedError(errorCode,description,failingUrl);
+                mH5OnProgressListener.onReceivedError(errorCode, description, failingUrl);
             }
         }
     }
@@ -99,8 +108,8 @@ public class H5WebView extends WebView {
     public void setWebViewClient(WebViewClient client) {
         super.setWebViewClient(client);
         if (client instanceof H5WebViewClient) {
-            final H5WebViewClient h5WebViewClient = (H5WebViewClient) client;
-            h5WebViewClient.setH5WebView(this);
+            mH5WebViewClient = (H5WebViewClient) client;
+            mH5WebViewClient.setH5WebView(this);
         } else {
             throw new IllegalArgumentException("you should use H5WebViewClient");
         }
@@ -110,8 +119,8 @@ public class H5WebView extends WebView {
     public void setWebChromeClient(WebChromeClient client) {
         super.setWebChromeClient(client);
         if (client instanceof WebChromeClient) {
-            final H5WebChromeClient h5WebChromeClient = (H5WebChromeClient) client;
-            h5WebChromeClient.setH5WebView(this);
+            mH5WebChromeClient = (H5WebChromeClient) client;
+            mH5WebChromeClient.setH5WebView(this);
         } else {
             throw new IllegalArgumentException("you should use H5WebChromeClient");
         }
@@ -123,5 +132,9 @@ public class H5WebView extends WebView {
 
     public void setH5OpenFileChooserListener(H5OpenFileChooserListener listener) {
         this.mH5OpenFileChooserListener = listener;
+    }
+
+    public void onActivityResult(Context context, final int resultCode, final Intent data) {
+        mH5WebChromeClient.onActivityResult(context, resultCode, data);
     }
 }
