@@ -4,8 +4,6 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements H5OnProgressListe
     }
 
     @Override
-    public void onReceivedError(WebResourceRequest request, WebResourceError error) {
+    public void onReceivedError(int errorCode, String description, String failingUrl) {
         Toast.makeText(this,"error",Toast.LENGTH_SHORT).show();
     }
 

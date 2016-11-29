@@ -4,8 +4,6 @@ import android.content.Context;
 import android.net.http.SslError;
 import android.util.AttributeSet;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -75,11 +73,11 @@ public class H5WebView extends WebView {
         }
     }
 
-    void onReceivedError(WebResourceRequest request, WebResourceError error) {
+    void onReceivedError(int errorCode, String description, String failingUrl) {
         if (!mReceivedError) {
             mReceivedError = true;
             if (mH5OnProgressListener != null) {
-                mH5OnProgressListener.onReceivedError(request, error);
+                mH5OnProgressListener.onReceivedError(errorCode,description,failingUrl);
             }
         }
     }

@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.support.v7.app.AlertDialog;
 import android.webkit.SslErrorHandler;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -43,10 +41,8 @@ class H5WebViewClient extends WebViewClient {
     }
 
     @Override
-    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-        super.onReceivedError(view, request, error);
-        H5Log.d("onReceivedError  %d", view.getProgress());
-        mH5WebView.onReceivedError(request, error);
+    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+        mH5WebView.onReceivedError(errorCode,description, failingUrl);
     }
 
     @Override

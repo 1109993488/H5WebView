@@ -1,8 +1,6 @@
 package com.blingbling.h5webview.web;
 
 import android.net.http.SslError;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 
 /**
  * Created by BlingBling on 2016/11/28.
@@ -14,7 +12,7 @@ public interface H5OnProgressListener {
 
     void onPageFinished(String url);
 
-    void onReceivedError(WebResourceRequest request, WebResourceError error);
+    void onReceivedError(int errorCode, String description, String failingUrl);
 
     void onReceivedSslError(SslError error);
 }
