@@ -31,11 +31,11 @@
         </com.blingbling.h5webview.web.H5WebView>
 
         <ProgressBar
-            android:visibility="gone"
-            android:max="100"
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="3dp"/>
+            android:layout_height="3dp"
+            android:max="1000"
+            android:visibility="gone"/>
     </FrameLayout>
 </LinearLayout>

@@ -1,23 +1,25 @@
 package com.blingbling.h5webview.web;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.webkit.DownloadListener;
+import android.webkit.URLUtil;
 
-public class H5WebViewDownLoadListener implements DownloadListener {
+/**
+ * Created by BlingBling on 2017/2/25.
+ */
+class H5WebViewDownLoadListener implements DownloadListener {
 
-    private Activity mActivity;
+    private H5WebView mH5WebView;
 
-    public H5WebViewDownLoadListener(Activity activity) {
-        mActivity = activity;
+    public H5WebViewDownLoadListener(H5WebView h5WebView) {
+        mH5WebView = h5WebView;
     }
 
     @Override
-    public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        mActivity.startActivity(intent);
-    }
+    public void onDownloadStart(final String url, final String userAgent, final String contentDisposition, final String mimeType, final long contentLength) {
+        final String suggestedFilename = URLUtil.guessFileName(url, contentDisposition, mimeType);
 
+        if (mH5WebView.mDownloadListener != null) {
+            mH5WebView.mDownloadListener.onDownloadRequested(url, suggestedFilename, mimeType, contentLength, contentDisposition, userAgent);
+        }
+    }
 }
