@@ -78,23 +78,7 @@ public class H5WebView extends WebView {
         init(context);
     }
 
-    public void setOnWebStateListener(final Activity activity, final OnWebStateListener listener) {
-        if (activity != null) {
-            mActivity = new WeakReference<Activity>(activity);
-        } else {
-            mActivity = null;
-        }
-
-        mWebStateListener = listener;
-    }
-
-    public void setOnWebStateListener(final Fragment fragment, final OnWebStateListener listener) {
-        if (fragment != null) {
-            mFragment = new WeakReference<Fragment>(fragment);
-        } else {
-            mFragment = null;
-        }
-
+    public void setOnWebStateListener( final OnWebStateListener listener) {
         mWebStateListener = listener;
     }
 
@@ -233,6 +217,14 @@ public class H5WebView extends WebView {
     public void setUploadableFileTypes(final int requestCodeFilePicker, final String mimeType) {
         mRequestCodeFilePicker = requestCodeFilePicker;
         mUploadFileTypes = mimeType;
+    }
+
+    public void setFragment(Fragment fragment){
+        if (fragment != null) {
+            mFragment = new WeakReference<Fragment>(fragment);
+        } else {
+            mFragment = null;
+        }
     }
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {

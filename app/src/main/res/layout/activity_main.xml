@@ -18,24 +18,8 @@
         android:onClick="click2"
         android:text="click2"/>
 
-    <FrameLayout
+    <com.blingbling.h5webview.web.H5WebContainer
+        android:id="@+id/webContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.blingbling.h5webview.web.H5WebView
-            android:id="@+id/web"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-        </com.blingbling.h5webview.web.H5WebView>
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:max="1000"
-            android:visibility="gone"/>
-    </FrameLayout>
+        android:layout_height="match_parent"></com.blingbling.h5webview.web.H5WebContainer>
 </LinearLayout>

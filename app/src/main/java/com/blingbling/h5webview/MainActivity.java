@@ -10,27 +10,25 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.blingbling.h5webview.web.H5WebContainer;
 import com.blingbling.h5webview.web.H5WebView;
 import com.blingbling.h5webview.web.listener.OnWebStateListener;
 
-import static com.blingbling.h5webview.R.id.progressBar;
 
-public class MainActivity extends AppCompatActivity implements OnWebStateListener {
+public class MainActivity extends AppCompatActivity {
 
     //    public static final String url="http://www.jianshu.com/p/569ab68da482";
     public static final String url = "http://www.baidu.com";
     public static final String url2 = "https://www.12306.cn/";
 
     H5WebView mWeb;
-    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mWeb = (H5WebView) findViewById(R.id.web);
-        mProgressBar = (ProgressBar) findViewById(progressBar);
-        mWeb.setOnWebStateListener(this, this);
+        H5WebContainer h5WebContainer = (H5WebContainer)findViewById(R.id.webContainer);
+        mWeb = h5WebContainer.getWebView();
         mWeb.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -105,37 +103,5 @@ public class MainActivity extends AppCompatActivity implements OnWebStateListene
         if (mWeb.onBackPressed()) {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public void onPageStarted(String url, Bitmap favicon) {
-        Log.e("TAG", "onPageStarted");
-//        mProgressBar.setProgress(0);
-//        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onPageProgressChanged(int progress) {
-        Log.d("TAG", "onPageProgressChanged---->" + progress);
-        mProgressBar.setProgress(progress);
-        if(progress==1000){
-            mProgressBar.setVisibility(View.GONE);
-        }else {
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    @Override
-    public void onPageFinished(String url) {
-        Log.e("TAG", "onPageFinished");
-//        mProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onPageError(int errorCode, String description, String failingUrl) {
-        mProgressBar.setVisibility(View.GONE);
-        Log.e("TAG", "onPageError");
-
     }
 }
